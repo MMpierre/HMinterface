@@ -17,7 +17,7 @@ def init():
     df = pd.read_json('pythonBert/data/jsons/reductedJsonExport.json')
     return model,lr2,families
 
-model,lr2,families,st.session_state["df" = init()
+model,lr2,families,st.session_state["df"] = init()
 
 if 'count' not in st.session_state:
 	st.session_state.count = -1
