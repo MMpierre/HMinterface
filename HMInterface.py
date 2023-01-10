@@ -14,9 +14,10 @@ def init():
     model = SentenceTransformer('Sahajtomar/french_semantic')
     lr2 = pickle.load(open('matchingLR2.sav', 'rb'))
     families = json.load(open(r'families.json',encoding="utf-8"))
+    df = pd.read_json('pythonBert/data/jsons/reductedJsonExport.json')
     return model,lr2,families
 
-model,lr2,families = init()
+model,lr2,families,st.session_state["df" = init()
 
 if 'count' not in st.session_state:
 	st.session_state.count = -1
@@ -37,10 +38,6 @@ titre = below.empty()
 description = col2.empty()
 st.sidebar.image("logo.png")
 
-#Disabling warning
-st.set_option('deprecation.showfileUploaderEncoding', False)
-#Choose your own image
-uploaded_file = st.sidebar.file_uploader(" ",type=['json'] )
 with open('style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
@@ -100,11 +97,6 @@ def update():
         options = calcul(text)
     col2.selectbox("Sélectionnez le métier",options,on_change=addToList,key="selected_option")
 
-@st.cache(allow_output_mutation=True)
-def openFile():
-    return pd.read_json(uploaded_file).loc[:99]
-
-
 if col2.button("Retour"):
     if st.session_state.count > 0:
         del st.session_state["metiers"][-1]
@@ -112,19 +104,15 @@ if col2.button("Retour"):
     else:
         st.session_state.count -= 1
 
-if uploaded_file is not None:
-    st.session_state["df"] = openFile() 
-    st.session_state.count +=1
-    update()      
+st.session_state.count +=1
+update()      
 
-    
-        
+      
 # For newline
 st.sidebar.write('\n')
 st.sidebar.write('Nombre de formations classées = ', st.session_state.count)    
 st.sidebar.write('Nombre de formations validées = ', len(st.session_state["metiers"]))
-if uploaded_file is not None:
-    st.sidebar.write('Nombre de formations restantes =', len(st.session_state["df"])-st.session_state.count)    
+st.sidebar.write('Nombre de formations restantes =', len(st.session_state["df"])-st.session_state.count)    
 
 
 st.sidebar.download_button(
