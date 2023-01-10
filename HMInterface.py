@@ -14,7 +14,7 @@ def init():
     model = SentenceTransformer('Sahajtomar/french_semantic')
     lr2 = pickle.load(open('matchingLR2.sav', 'rb'))
     families = json.load(open(r'families.json',encoding="utf-8"))
-    df = pd.read_json('pythonBert/data/jsons/reductedJsonExport.json')
+    df = pd.read_json('reductedJsonExport.json')
     return model,lr2,families
 
 model,lr2,families,st.session_state["df"] = init()
